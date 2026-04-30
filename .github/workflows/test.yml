@@ -1,19 +1,30 @@
-name: test
+name: Mudar Branch no Workflow
+
 on:
   push:
     branches: 
       - dev
 
-jobs: 
-validar-push-dev:
-runs-on: ubuntu-latest
-
-steps:
-
-
-
-- name: Checkout index
-run: test -f index.html
-
-
-
+jobs:
+  mudar-branch:
+    runs-on: ubuntu-latest
+    
+    steps:
+    - name: Checkout do código
+      uses: actions/checkout@v3
+      with:
+        fetch-depth: 0
+    
+    - name: Listar branches atuais
+      run: git branch -a
+    
+    - name: Mudar para outra branch
+      run: |
+        git checkout main
+        # ou
+        git checkout staging
+        # ou
+        git checkout -b nova-branch
+    
+    - name: Verificar branch atual
+      run: git branch --show-current
